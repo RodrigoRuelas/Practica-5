@@ -11,6 +11,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.android.material.button.MaterialButton
 
 class MainActivity : AppCompatActivity() {
 
@@ -30,6 +31,21 @@ class MainActivity : AppCompatActivity() {
         fd.close()
         m.prepare()
         m
+    }
+
+    // Lista de botones
+    val controllers by lazy {
+        listOf(R.id.prev, R.id.stop, R.id.play, R.id.next).map {
+            findViewById<MaterialButton>(it)
+        }
+    }
+
+    // Indice de botones
+    object ci{
+        val prev = 0
+        val stop = 1
+        val play = 2
+        val next = 3
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
