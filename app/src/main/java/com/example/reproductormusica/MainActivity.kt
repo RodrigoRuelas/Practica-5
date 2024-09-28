@@ -7,6 +7,7 @@ package com.example.reproductormusica
 
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -52,6 +53,24 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
-        mp.start()
+        controllers[ci.play].setOnClickListener(this::playClick)
+        controllers[ci.stop].setOnClickListener(this::stopClick)
+    }
+
+    // Funcion boton Play
+    fun playClick(view: View) {
+        if (!mp.isPlaying) {
+            mp.start()
+        } else {
+            mp.pause()
+        }
+    }
+
+    // Funcion boton Stop
+    fun stopClick(view: View) {
+        if (mp.isPlaying) {
+            mp.pause()
+        }
+        mp.seekTo(0)
     }
 }
