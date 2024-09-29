@@ -61,8 +61,10 @@ class MainActivity : AppCompatActivity() {
     fun playClick(view: View) {
         if (!mp.isPlaying) {
             mp.start()
+            controllers[ci.play].setIconResource(R.drawable.baseline_pause_48)
         } else {
             mp.pause()
+            controllers[ci.play].setIconResource(R.drawable.baseline_play_arrow_48)
         }
     }
 
@@ -70,6 +72,7 @@ class MainActivity : AppCompatActivity() {
     fun stopClick(view: View) {
         if (mp.isPlaying) {
             mp.pause()
+            controllers[ci.play].setIconResource(R.drawable.baseline_play_arrow_48)
         }
         mp.seekTo(0)
     }
