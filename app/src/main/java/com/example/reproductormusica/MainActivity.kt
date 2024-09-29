@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
 
     // Creando fichero de audio
     val fd by lazy {
-        assets.openFd("Fragil - Avenida Larco.mp3")
+        assets.openFd(cancionActual)
     }
 
     // Objero MediaPlayer
@@ -50,9 +50,30 @@ class MainActivity : AppCompatActivity() {
         val next = 3
     }
 
+    // Nombre de la cancion
     val nombreCancion by lazy {
         findViewById<TextView>(R.id.nombreCancion)
     }
+
+    // Lista de canciones
+    val canciones by lazy {
+        val nombreFicheros = assets.list("")?.toList() ?: listOf()
+        nombreFicheros.filter { it.contains(".mp3") }
+    }
+
+    // Control de recorrido de canciones
+    var cancionActualIndex = 0
+        set(value) {
+            var v = if (value == -1) {
+                canciones.size-1
+            } else {
+                value % canciones.size
+            }
+            field = v
+            cancionActual = canciones[v]
+        }
+
+    lateinit var cancionActual:String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,7 +81,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         controllers[ci.play].setOnClickListener(this::playClick)
         controllers[ci.stop].setOnClickListener(this::stopClick)
-        nombreCancion.text = "Fragil - Avenida Larco.mp3"
+        cancionActual = canciones[cancionActualIndex]
+        nombreCancion.text = cancionActual
     }
 
     // Funcion boton Play
