@@ -8,6 +8,7 @@ package com.example.reproductormusica
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -49,12 +50,17 @@ class MainActivity : AppCompatActivity() {
         val next = 3
     }
 
+    val nombreCancion by lazy {
+        findViewById<TextView>(R.id.nombreCancion)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
         controllers[ci.play].setOnClickListener(this::playClick)
         controllers[ci.stop].setOnClickListener(this::stopClick)
+        nombreCancion.text = "Fragil - Avenida Larco.mp3"
     }
 
     // Funcion boton Play
@@ -62,6 +68,7 @@ class MainActivity : AppCompatActivity() {
         if (!mp.isPlaying) {
             mp.start()
             controllers[ci.play].setIconResource(R.drawable.baseline_pause_48)
+            nombreCancion.visibility = View.VISIBLE
         } else {
             mp.pause()
             controllers[ci.play].setIconResource(R.drawable.baseline_play_arrow_48)
@@ -73,6 +80,7 @@ class MainActivity : AppCompatActivity() {
         if (mp.isPlaying) {
             mp.pause()
             controllers[ci.play].setIconResource(R.drawable.baseline_play_arrow_48)
+            nombreCancion.visibility = View.INVISIBLE
         }
         mp.seekTo(0)
     }
