@@ -81,6 +81,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         controllers[ci.play].setOnClickListener(this::playClick)
         controllers[ci.stop].setOnClickListener(this::stopClick)
+        controllers[ci.prev].setOnClickListener(this::prevClick)
+        controllers[ci.next].setOnClickListener(this::nextClick)
         cancionActual = canciones[cancionActualIndex]
         nombreCancion.text = cancionActual
     }
@@ -105,5 +107,31 @@ class MainActivity : AppCompatActivity() {
             nombreCancion.visibility = View.INVISIBLE
         }
         mp.seekTo(0)
+    }
+
+    // Funcion boton Next
+    fun nextClick(view: View) {
+        cancionActualIndex++
+        refreshSong()
+    }
+
+    // Funcion boton Prev
+    fun prevClick(view: View) {
+        cancionActualIndex--
+        refreshSong()
+    }
+
+    // Funcion reiniciar cancion
+    fun refreshSong() {
+        mp.reset()
+        val fd = assets.openFd(cancionActual)
+        mp.setDataSource(
+            fd.fileDescriptor,
+            fd.startOffset,
+            fd.length
+        )
+        mp.prepare()
+        playClick(controllers[ci.play])
+        nombreCancion.text = cancionActual
     }
 }
