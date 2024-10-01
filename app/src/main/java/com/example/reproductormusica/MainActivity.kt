@@ -1,7 +1,7 @@
 // Proyecto: Reproductor de musica
 // De: Rodrigo Alonso Ruelas Lope
 // Fecha de Creacion: 28/09/2024 - 12:50 am
-// Ultima modificacion: 28/09/2024 -  am
+// Ultima modificacion: 01/10/2024 - 12:49 am
 
 package com.example.reproductormusica
 
