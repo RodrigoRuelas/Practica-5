@@ -7,6 +7,10 @@ android {
     namespace = "com.example.reproductormusica"
     compileSdk = 34
 
+    viewBinding {
+        enable = true
+    }
+
     defaultConfig {
         applicationId = "com.example.reproductormusica"
         minSdk = 33

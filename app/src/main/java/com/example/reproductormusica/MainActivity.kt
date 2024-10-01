@@ -13,6 +13,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.google.android.material.button.MaterialButton
 
 class MainActivity : AppCompatActivity() {
@@ -85,6 +88,14 @@ class MainActivity : AppCompatActivity() {
         controllers[ci.next].setOnClickListener(this::nextClick)
         cancionActual = canciones[cancionActualIndex]
         nombreCancion.text = cancionActual
+    }
+
+    override fun onStart() {
+        super.onStart()
+        findViewById<RecyclerView>(R.id.rv).apply {
+            adapter = AdaptadorCanciones(canciones, this@MainActivity)
+            layoutManager = LinearLayoutManager(this@MainActivity)
+        }
     }
 
     // Funcion boton Play
